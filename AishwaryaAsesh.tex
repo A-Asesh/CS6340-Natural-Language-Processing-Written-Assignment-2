@@ -1,0 +1,207 @@
+% HW Template for CS 6150, taken from https://www.cs.cmu.edu/~ckingsf/class/02-714/hw-template.tex
+%
+% You don't need to use LaTeX or this template, but you must turn your homework in as
+% a typeset PDF somehow.
+%
+% How to use:
+%    1. Update your information in section "A" below
+%    2. Write your answers in section "B" below. Precede answers for all 
+%       parts of a question with the command "\question{n}{desc}" where n is
+%       the question number and "desc" is a short, one-line description of 
+%       the problem. There is no need to restate the problem.
+%    3. If a question has multiple parts, precede the answer to part x with the
+%       command "\part{x}".
+%    4. If a problem asks you to design an algorithm, use the commands
+%       \algorithm, \correctness, \runtime to precede your discussion of the 
+%       description of the algorithm, its correctness, and its running time, respectively.
+%    5. You can include graphics by using the command \includegraphics{FILENAME}
+%
+\documentclass[11pt]{article}
+
+\usepackage{epsfig}
+
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\newdimen\nodeDist
+\nodeDist=20mm
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{fancyhdr}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt}
+\setlength{\headheight}{13.6pt}
+\newcommand\question[2]{\vspace{.25in}\hrule\textbf{#1: #2}\vspace{.5em}\hrule\vspace{.10in}}
+\renewcommand\part[1]{\vspace{.10in}\textbf{(#1)}}
+\newcommand\algorithm{\vspace{.10in}\textbf{Algorithm: }}
+\newcommand\correctness{\vspace{.10in}\textbf{Correctness: }}
+\newcommand\runtime{\vspace{.10in}\textbf{Running time: }}
+\pagestyle{fancyplain}
+\lhead{\textbf{\NAME\ (\UID)}}
+\chead{\textbf{Written Assignment\HWNUM}}
+\rhead{CS 6340, \today}
+\begin{document}\raggedright
+%Section A==============Change the values below to match your information==================
+\newcommand\NAME{Aishwarya Asesh}  % your name
+\newcommand\UID{u1063384}     % your utah UID
+\newcommand\HWNUM{2}              % the homework number
+%Section B==============Put your answers to the questions below here=======================
+
+% no need to restate the problem --- the graders know which problem is which,
+% but replacing "The First Problem" with a short phrase will help you remember
+% which problem this is when you read over your homeworks to study.
+
+
+\question{1}{Probability Values}
+
+\bgroup 
+\def\arraystretch{2.2}
+\begin{tabular}{|l|c|c||c|c|} \hline 
+{\bf \underline {NOUN}} & {\bf \underline {FREQ}} & {\bf \underline {UNSMOOTHED PROB}} & {\bf \underline {SMOOTHED FREQ}} & {\bf \underline {SMOOTHED PROB}} \\ \hline
+
+maple & 600 & $ \dfrac{600}{1200}=0.50$ & $\dfrac{601}{1205}\times 1200=598.50$ & $\dfrac{601}{1205}=0.4988$ \\ \hline
+oak & 400  & $\dfrac{400}{1200}=0.33$ & $\dfrac{401}{1205}\times 1200=399.33$ & $\dfrac{401}{1205}=0.3328$ \\ \hline
+pine & 180  & $\dfrac{180}{1200}=0.15$ & $\dfrac{401}{1205} \times 1200=180.24$ & $\dfrac{181}{1205}=0.1502$ \\ \hline
+spruce & 20  & $\dfrac{20}{1200}=0.01$ & $\dfrac{401}{1205}\times 1200=20.91$ & $\dfrac{21}{1205}=0.0174$ \\ \hline
+aspen & 0  & $\dfrac{0}{1200}=0.00$ & $\dfrac{401}{1205}\times 1200=0.9958$ & $\dfrac{1}{1205}=0.0008$ \\ \hline
+\end{tabular}
+\egroup
+
+\newpage
+
+\question{2}{Recursive Transition Networks} 
+
+\begin{enumerate}
+
+\item \textbf{Grammar A and Grammar B:} \underline {DIFFERENT}
+\\ \textit{Grammar A} will not parse a sequence starting with a \textit{noun}. 
+
+For example: a Noun Phrase \textit{"noun noun"} can be parsed by \emph{grammar B}, while this cannot be parsed by \emph{grammar A}
+
+\item \textbf{Grammar A and Grammar C:} \underline {DIFFERENT}
+\\ \textit{Grammar C} will not parse a sequence which will not follow the condition that an adjective comes after an article.
+
+For example: the sequence \textit{"art noun"} can be parsed by \emph{grammar A}, but it cannot be  parsed by \emph{grammar C}.
+
+\item \textbf{Grammar A and RTN-2:} \underline {DIFFERENT}
+\\ \textit{Grammar A} can only accept a sequence starting with an \textit{article} while \textit{RTN-2} can accept any sequence starting with an \textit{adjective} or an \textit{article}.
+
+For example: a sequence \textit{"adj noun noun"} can be parsed by \textit{RTN-2} but it cannot be parsed by \textit{Grammer A}.
+
+\item \textbf{Grammar A and RTN-3:} \underline {DIFFERENT}
+\\ \textit{Grammar A} can  accept a sequence starting with an \textit{art} followed by a \textit{noun} while {RTN-3} can only accept a sequence starting with an \textit{art} followed by an \textit{adjective}
+
+For example: a sequence \textit{"art noun"} can be parsed by \textit{Grammer A} but it cannot be parsed by \textit{RTN-3}.
+
+\item \textbf{Grammar B and RTN-2:} \underline {SAME}
+\\\textit{Grammar B and RTN-2} both will accept same input string.
+
+\item \textbf{Grammar C and RTN-1:} \underline {DIFFERENT}
+\\ \textit{Grammar C}  will accept sequences which terminates in \textit{noun} while \textit{RTN-1} can have sequence terminating in \textit noun or \textit adjective.
+
+For example: a sequence \textit{"art adj"} can't be parsed by \textit{Grammer C} but it can be parsed by \textit{RTN-1}.
+
+\item \textbf{Grammar C and RTN-3:} \underline {SAME}
+\\ \textit{Grammar C and RTN-3} both will accept same input string . 
+
+\item \textbf{RTN-1 and RTN-3:} \underline {DIFFERENT}
+\\\textit{RTN-3} can accept sequences terminating in   \textit{noun} only while \textit{RTN-1} can accept sequence ending in an \textit{adjective} also. 
+
+For example: a sequence \textit{" art adj adj"} can be parsed by \textit{RTN-1} but it cannot be parsed by \textit{RTN-3}.
+
+\end{enumerate}
+\newpage
+\question{3}{Computing Probabilities}
+\begin{enumerate}
+
+\item $P(the)=\dfrac{5}{34}=0.147$
+
+\item $P(VERB)=\dfrac{6}{34}=0.176$ 
+
+\item $P(young \mid girl)=\dfrac{0}{3}=0$
+
+\item $P(girl \mid young)=\dfrac{2}{2}=1$
+
+\item $P(and \mid woman)=\dfrac{1}{3}=0.33$
+
+\item $P(thanked \mid young~girl)=\dfrac{0}{2}=0$
+
+\item $P(five \mid gave~her)=\dfrac{1}{2}=0.5$
+
+\item $P(the \mid ART)=\dfrac{5}{8}=0.625$
+
+\item $P(cross \mid NOUN)=\dfrac{0}{9}=0$
+
+\item $P(thanked \mid VERB)=\dfrac{2}{6}=0.33$
+
+\item $P(NUM \mid PRO)=\dfrac{1}{2}=0.5$ 
+
+\item $P(ART \mid VERB)=\dfrac{4}{6}=0.66$
+  
+\end{enumerate}
+
+\newpage
+\question{4}{Viterbi Algorithm}
+
+\begin{enumerate} \large
+
+\item P(light=VERB) = P(VERB $\mid \phi$)$\times$ P(light $\mid$ VERB) $=$ $0.25 \times 0.50=0.125$   \\
+
+\item P(light=NOUN) = P(NOUN $\mid \phi$)$\times$ P(light $\mid$ NOUN) $=$ $0.7 \times 0.60=0.42$  \\
+
+\item P(light=ADJ) = P(ADJ $\mid \phi$)$\times$ P(light $\mid$ ADJ) $=$ $0.2 \times 0.15=0.03$  \\
+
+\item P(shows=VERB) = P(shows $\mid $VERB) $\times$ $\max$\{P(VERB $\mid$ NOUN) $\times$ P(light$\mid$ NOUN),\thinspace P(VERB $\mid $ VERB) $\times$ P(light $ \mid $ VERB),\thinspace P(VERB $\mid $ ADJ) $\times$ P(light  $\mid $ ADJ) $=$ $0.30$ $\times$ $\max$\{$0.50 \times 0.42$,\thinspace $0.40 \times 0.125$,\thinspace$0.10 \times 0.3$ \}$=0.063$\\
+
+\item P(shows=NOUN) =P(shows $\mid$ NOUN) $\times$ $\max$\{P(NOUN $\mid $ NOUN) $\times$ P(light$\mid$ NOUN),\thinspace P(NOUN $\mid$ VERB) $\times$ P(light$ \mid $ VERB),\thinspace P(NOUN $\mid$ ADJ) $\times$ P(light$ \mid $ADJ) $=$ $0.40$ $\times$ $\max$\{$0.80 \times 0.42$,\thinspace $0.30 \times 0.125$,\thinspace$0.60 \times 0.3$ \}$=0.1344$\\
+
+\item P(shows=ADJ) =P(shows $\mid $ ADJ) $\times$ $\max$\{P(ADJ $\mid $ NOUN) $\times$ P(light $\mid $NOUN),\thinspace P(ADJ $\mid$ VERB) $\times$ P(light$ \mid$ VERB),\thinspace P( ADJ $\mid $ ADJ) $\times$ P(light $\mid$ ADJ) $=$ $0.10$ $\times$ $\max$\{$0.20 \times 0.42$,\thinspace $0.70 \times 0.125$,\thinspace$0.90 \times 0.003$ \}$=0.00875$ \\
+
+\end{enumerate} 
+
+\newpage
+\question{5}{Lexical tag - Forward probabilities}
+\begin{enumerate}
+
+\item  $P(light/VERB \mid light)=\dfrac{P(light/VERB)}{P(light)}=\dfrac{0.125}{0.575}$  \\
+
+\item  $P(light/NOUN \mid light)=\dfrac{P(light/NOUN)}{P(light)}=\dfrac{0.42}{0.575}$  \\
+
+\item $P(light/ADJ \mid light)=\dfrac{P(light/ADJ)}{P(light)}=\dfrac{0.03}{0.575}$  \\
+
+FOR PART (d),(e),(f) $\alpha$ values are defined as (Calculated in below steps)
+\\$\alpha_{1}=0.0789$
+\\$\alpha_{2}=0.1566$
+\\$\alpha_{3}=0.01985$ 
+
+\item $P(shows/VERB \mid light\ \ shows)=$ \\
+
+P(shows $\mid $VERB) $\times$ $SUM$\{P(VERB $\mid$ NOUN) $\times$ P(light$\mid$ NOUN),\thinspace P(VERB $\mid $ VERB) $\times$ P(light $ \mid $ VERB),\thinspace P(VERB $\mid $ ADJ) $\times$ P(light  $\mid $ ADJ) 
+\\$=$ $0.30$ $\times$ $SUM$\{$0.50 \times 0.42$ $ + $\thinspace $0.40 \times 0.125$ $ + $\thinspace$0.10 \times 0.3$ \}$=0.0789$\\
+
+Thus $\alpha_{1}=0.0789$
+
+Now $\alpha_{1}$/ ( $\alpha_{1}$ + $\alpha_{2}$ + $\alpha_{3}$ ) = ( 0.0789/0.2553 )
+
+\item $P(shows/NOUN \mid light\ \ shows)=$ \\
+
+P(shows=NOUN) =P(shows $\mid$ NOUN) $\times$ $SUM$\{P(NOUN $\mid $ NOUN) $\times$ P(light$\mid$ NOUN),\thinspace P(NOUN $\mid$ VERB) $\times$ P(light$ \mid $ VERB),\thinspace P(NOUN $\mid$ ADJ) $\times$ P(light$ \mid $ADJ) 
+\\$=$ $0.40$ $\times$ $SUM$\{$0.80 \times 0.42$ $ + $\thinspace $0.30 \times 0.125$$ + $\thinspace$0.60 \times 0.3$ \}$=0.1566$\\
+
+Thus $\alpha_{2}=0.1566$
+
+Now $\alpha_{2}$/ ( $\alpha_{1}$ + $\alpha_{2}$ + $\alpha_{3}$ ) = ( 0.1566/0.2553 )
+
+\item $P(shows/ADJ \mid light\ \ shows)=$ \\
+
+P(shows=ADJ) =P(shows $\mid $ ADJ) $\times$ $SUM$\{P(ADJ $\mid $ NOUN) $\times$ P(light $\mid $NOUN),\thinspace P(ADJ $\mid$ VERB) $\times$ P(light$ \mid$ VERB),\thinspace P( ADJ $\mid $ ADJ) $\times$ P(light $\mid$ ADJ) 
+\\$=$ $0.10$ $\times$ $SUM$\{$0.20 \times 0.42$$ + $\thinspace $0.70 \times 0.125$$ + $\thinspace$0.90 \times 0.003$ \}$=0.01985$ \\
+
+Thus $\alpha_{3}=0.01985$
+
+Now $\alpha_{3}$/ ( $\alpha_{1}$ + $\alpha_{2}$ + $\alpha_{3}$ ) = ( 0.01985/0.2553 )
+
+\end{enumerate}
+
+\end{document}
